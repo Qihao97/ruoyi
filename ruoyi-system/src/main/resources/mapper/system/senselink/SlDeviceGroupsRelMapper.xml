@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SlDeviceGroupsRelMapper">
+
+	<resultMap type="SlDeviceGroupsRel" id="SlDeviceGroupsRelResult">
+		<id     property="id"       column="id"        />
+		<result property="groupid"      column="groupid"       />
+		<result property="deviceid"     column="deviceid"      />
+	</resultMap>
+	
+	<sql id="selectDeviceGroupsRelVo">
+        select r.id,  r.groupid, r.deviceid
+        from sl_devicegroupsrel r
+    </sql>
+
+	
+	<select id="selectDeviceGroupsRelById" parameterType="Long" resultMap="SlDeviceGroupsRelResult">
+		<include refid="selectDeviceGroupsRelVo"/>
+		where r.id = #{id}
+	</select>
+
+	<select id="selectDeviceGroupsRelList" parameterType="SlDeviceGroupsRel" resultMap="SlDeviceGroupsRelResult">
+		<include refid="selectDeviceGroupsRelVo"/>
+		where 1 = 1
+		<if test="groupid != null and groupid != 0">
+			AND r.groupid =  #{groupid}
+		</if>
+		<if test="deviceid != null and deviceid != 0">
+			AND r.deviceid = #{deviceid}
+		</if>
+	</select>
+	
+	<delete id="deleteDeviceGroupsRelById" parameterType="Long">
+ 		delete from sl_devicegroupsrel where id = #{id}
+ 	</delete>
+
+ 	<insert id="saveOrUpdateDeviceGroupsRel" parameterType="SlDeviceGroupsRel"  useGeneratedKeys="true" keyProperty="id">
+		<selectKey keyProperty="count" resultType="int" order="BEFORE">
+			select count(*) from sl_devicegroupsrel where groupid = #{groupid} and  deviceid = #{deviceid}
+		</selectKey>
+		<if test="count==0">
+ 		insert into sl_devicegroupsrel(
+				groupid,
+				deviceid
+ 		)values(
+				#{groupid},
+				#{deviceid}
+ 		)
+		</if>
+		<if test="count > 0">
+			update sl_devicegroupsrel
+			set groupid = #{groupid},deviceid = #{deviceid}
+			where groupid = #{groupid} and  deviceid = #{deviceid}
+		</if>
+	</insert>
+
+</mapper> 

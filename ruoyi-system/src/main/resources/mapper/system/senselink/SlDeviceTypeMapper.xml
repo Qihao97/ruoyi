@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SlDeviceTypeMapper">
+
+	<resultMap type="SlDeviceType" id="SlDeviceTypeResult">
+		<id     property="id"       column="id"        />
+		<result property="identifier"     column="identifier"      />
+		<result property="name"      column="name"       />
+		<result property="description"     column="description"      />
+		<result property="create_at"       column="create_at"  />
+		<result property="update_at"       column="update_at"  />
+	</resultMap>
+	
+	<sql id="selectDeviceTypeVo">
+        select r.id, r.identifier, r.name, r.description, r.create_at, r.update_at
+        from sl_device_type r
+    </sql>
+
+	
+	<select id="selectDeviceTypeById" parameterType="Long" resultMap="SlDeviceTypeResult">
+		<include refid="selectDeviceTypeVo"/>
+		where r.id = #{id}
+	</select>
+
+	
+	<delete id="deleteDeviceTypeById" parameterType="Long">
+ 		delete from sl_device_type where id = #{id}
+ 	</delete>
+
+ 	<insert id="saveOrUpdateDeviceType" parameterType="SlDeviceType" >
+ 		insert into sl_device_type(
+ 				id,
+		      	identifier,
+				name,
+				description,
+				create_at,
+				update_at
+ 		)values(
+ 			    #{id},
+				#{identifier},
+				#{name},
+				#{description},
+				#{create_at},
+				#{update_at}
+ 		)
+		on duplicate key update
+				name =	#{name},
+				identifier = #{identifier},
+				description =	#{description},
+				create_at =	#{create_at},
+				update_at =	#{update_at}
+	</insert>
+
+	<!-- 批量保存 -->
+	<insert id="batchSaveOrUpdateDeviceType" parameterType="java.util.List">
+		insert into sl_device_type(
+				id,
+				identifier,
+				name,
+				description,
+				create_at,
+				update_at
+		)
+		<foreach collection="list" item="item" index="index" separator=",">
+			values (
+			#{item.id},
+			#{item.identifier},
+			#{item.name},
+			#{item.description},
+			#{item.create_at},
+			#{item.update_at}
+			)
+		</foreach>
+		on duplicate key update
+			identifier =	 VALUES (identifier),
+			name =  VALUES (name),
+			description =	 VALUES (description),
+			create_at =	 VALUES (create_at),
+			update_at =	 VALUES (update_at)
+	</insert>
+	
+</mapper> 

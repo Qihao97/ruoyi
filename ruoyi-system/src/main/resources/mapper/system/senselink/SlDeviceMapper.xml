@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.SlDeviceMapper">
+
+	<resultMap type="SlDevice" id="SlDeviceResult">
+		<id     property="id"       column="id"        />
+		<result property="sn"     column="sn"      />
+		<result property="name"      column="name"       />
+		<result property="direction"     column="direction"      />
+		<result property="location"    column="location"     />
+		<result property="ip"       column="ip"         />
+		<result property="status"       column="status"         />
+		<result property="active"      column="active"       />
+		<result property="type_id"     column="type_id"      />
+		<result property="description"   column="description"    />
+		<result property="software_version"     column="software_version"      />
+		<result property="info"   column="info"    />
+		<result property="company_id"       column="company_id"  />
+		<result property="group_count"       column="group_count"  />
+		<result property="create_at"       column="create_at"  />
+		<result property="update_at"       column="update_at"  />
+	</resultMap>
+	
+	<sql id="selectDeviceVo">
+        select r.id, r.sn, r.name, r.direction, r.location, r.ip,
+            r.status, r.active, r.type_id, r.description, r.software_version,
+            r.info, r.company_id, r.group_count, r.create_at, r.update_at
+        from sl_device r
+    </sql>
+
+	
+	<select id="selectDeviceById" parameterType="Long" resultMap="SlDeviceResult">
+		<include refid="selectDeviceVo"/>
+		where r.id = #{id}
+	</select>
+
+	
+	<delete id="deleteDeviceById" parameterType="Long">
+ 		delete from sl_device where id = #{id}
+ 	</delete>
+
+ 	<insert id="saveOrUpdateDevice" parameterType="SlDevice" >
+ 		insert into sl_device(
+ 				id,
+		      	sn,
+				name,
+				direction,
+				location,
+				ip,
+				status,
+				active,
+				type_id,
+				description,
+				software_version,
+				info,
+				company_id,
+				group_count,
+				create_at,
+				update_at
+ 		)values(
+ 			    #{id},
+				#{sn},
+				#{name},
+				#{direction},
+				#{location},
+				#{ip},
+				#{status},
+				#{active},
+				#{type_id},
+				#{description},
+				#{software_version},
+				#{info},
+				#{company_id},
+				#{group_count},
+				#{create_at},
+				#{update_at}
+ 		)
+		on duplicate key update
+				sn = #{sn},
+				name =	#{name},
+				direction =	#{direction},
+				location =	#{location},
+				ip =	#{ip},
+				status =	#{status},
+				active =	#{active},
+				type_id =	#{type_id},
+				description =	#{description},
+				software_version =	#{software_version},
+				info =	#{info},
+				company_id =	#{company_id},
+				group_count =	#{group_count},
+				create_at =	#{create_at},
+				update_at =	#{update_at}
+	</insert>
+
+	<!-- 批量保存 -->
+	<insert id="batchSaveOrUpdateDevice" parameterType="java.util.List">
+		insert into sl_device(
+				id,
+				sn,
+				name,
+				direction,
+				location,
+				ip,
+				status,
+				active,
+				type_id,
+				description,
+				software_version,
+				info,
+				company_id,
+				group_count,
+				create_at,
+				update_at
+		)
+		<foreach collection="list" item="item" index="index" separator=",">
+			values (
+			#{item.id},
+			#{item.sn},
+			#{item.name},
+			#{item.direction},
+			#{item.location},
+			#{item.ip},
+			#{item.status},
+			#{item.active},
+			#{item.type_id},
+			#{item.description},
+			#{item.software_version},
+			#{item.info},
+			#{item.company_id},
+			#{item.group_count},
+			#{item.create_at},
+			#{item.update_at}
+			)
+		</foreach>
+		on duplicate key update
+			sn =  VALUES (sn),
+			name =	 VALUES (name),
+			direction =	 VALUES (direction),
+			location =	 VALUES (location),
+			ip =	 VALUES (ip),
+			status =	 VALUES (status),
+			active =	 VALUES (active),
+			type_id =	 VALUES (type_id),
+			description =	 VALUES (description),
+			software_version =	 VALUES (software_version),
+			info =	 VALUES (info),
+			company_id =	 VALUES (company_id),
+			group_count =	 VALUES (group_count),
+			create_at =	 VALUES (create_at),
+			update_at =	 VALUES (update_at)
+	</insert>
+	
+</mapper> 

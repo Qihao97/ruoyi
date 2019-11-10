@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+	<title>宿舍管理系统</title>
+	<meta name="keywords" content="宿舍管理,宿管,宿舍管理系统">
+	<meta name="description" content="宿舍管理系统">
+	<link href="../static/login2/css/basic.css" th:href="@{/login2/css/basic.css}"  rel="stylesheet"  />
+	<link href="../static/login2/css/login.css" th:href="@{/login2/css/login.css}"  rel="stylesheet"  />
+
+        <script type="text/javascript" src="../static/login2/js/jQuery.js" th:src="@{/login2/js/jQuery.js}"></script>
+        <script type="text/javascript" src="../static/login2/js/basic.js" th:src="@{/login2/js/basic.js}"></script>
+        <!-- <script type="text/javascript" src="../static/login2/js/three.js"></script> -->
+        <script type="text/javascript" src="../static/login2/js/app.js" th:src="@{/login2/js/app.js}"></script>
+        <script type="text/javascript" src="../static/login2/js/particles.js" th:src="@{/login2/js/particles.js}"></script>
+        <title>宿舍管理系统平台</title>
+    </head>
+    <body>
+    	<div class="pagewrap">
+           <!-- <div class="website-modify">维护时间</div>-->
+    		<div class="main" id="screen">
+    			<div class="login-page dsj-login">
+    				<!-- <i class="ico ico-star1"></i>
+    				<i class="ico ico-star2"></i>
+    				<i class="ico ico-star3"></i>
+    				<i class="ico ico-star4"></i>
+    				<i class="ico ico-star5"></i> -->
+    				<h3 class="platform-name">
+    					<i class="ico ico-logo"></i>
+    					智慧宿舍后台管理系统
+    				</h3>
+    				<div class="login-block">
+    					<div class="login-pop">
+    						<div class="login-body clearfix">
+    							<div class="login-info">
+                                    <div class="form-error">
+                                        <div class="msg-error">
+                                             <!--<i class="btn btn-error"></i>
+                                           用户名或密码错误-->
+                                        </div>
+                                    </div>
+									<form  id="signupForm">
+    								<div class="form-list">
+    									<div class="li">
+    										<div class="ele-wrap">
+    											<input value="admin"  name="username"  required="" type="text" class="form-control" placeholder="请输入用户名/邮箱/手机号">
+    										</div>
+    									</div>
+    									<div class="li">
+    										<div class="ele-wrap">
+    											<input value="admin123" name="password"    required="" type="password" class="form-control" placeholder="请输入密码">
+    										</div>
+    									</div>
+    									<div class="li" th:if="${captchaEnabled==true}">
+                                            <div class="ele-wrap">
+                                                <div class="code-img">
+													<a href="javascript:void(0);" title="点击更换验证码">
+														<img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode" width="40%"/>
+													</a>
+                                                </div>
+                                                <div class="proving-code">
+                                                    <input type="text" class="form-control" name="validateCode"  placeholder="验证码" maxlength="5" autocomplete="off">
+                                                </div>
+                                            </div>
+                                        </div>
+    									<div class="li">
+    										<div class="ele-wrap">
+							                    <!--<a class="btn btn-blue" id="btnSubmit" type="submit" href="javascript:;">登 录</a>-->
+												<button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
+    										</div>
+    									</div>
+    								</div>
+									</form>
+    							</div>
+    						</div>
+    					</div>
+    				</div>
+    				<div class="foot-record">
+                        Copyright © 2019-2022   www.hnrtxx.com 版权所有 
+                        <a class="record-num" target="_blank" href="http://www.miitbeian.gov.cn/">
+	                        <img src="../static/login2/images/icp.png" th:src="@{login2/images/icp.png}" />
+	                        <span>豫ICP备19007575号</span>
+	                    </a>
+                       技术支持：河南睿腾信息技术有限公司
+                    </div>
+    			</div>
+    			<div id="particles-js">	</div>
+    		</div>
+    	</div>
+
+		<script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
+		<!-- 验证插件 -->
+		<script src="../static/ajax/libs/validate/jquery.validate.min.js" th:src="@{/ajax/libs/validate/jquery.validate.min.js}"></script>
+		<script src="../static/ajax/libs/validate/messages_zh.min.js" th:src="@{/ajax/libs/validate/messages_zh.min.js}"></script>
+		<script src="../static/ajax/libs/layer/layer.min.js" th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+		<script src="../static/ajax/libs/blockUI/jquery.blockUI.js" th:src="@{/ajax/libs/blockUI/jquery.blockUI.js}"></script>
+		<script src="http://tajs.qq.com/stats?sId=62048022"></script>
+		<script src="../static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=3.2.0}"></script>
+		<script src="../static/ruoyi/login.js" th:src="@{/ruoyi/login.js}"></script>
+    </body>
+</html>
+<script>
+	$(function () {
+		var winH = $(window).height();
+		var starH = winH+50;
+		var starW = 998/998*starH;
+		$('.ico-star1').css({
+			'height':starH+'px',
+			'width': starW+'px'
+		});
+	});
+</script>
